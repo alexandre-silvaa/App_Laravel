@@ -81,7 +81,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    {{__('messages.welcome')}}
                 </div>
 
                 <div class="links">
