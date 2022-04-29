@@ -8,7 +8,7 @@ class ProductController extends Controller
 {
     protected $request;
 
-    public function __construct()
+    public function __construct(Request $request)
     {
         $this->request = $request; 
     }
@@ -50,6 +50,6 @@ class ProductController extends Controller
 
     public function delete($id)
     {
-        return "Excluindo um novo produto;
+        return "Excluindo um novo produto";
     }
 }

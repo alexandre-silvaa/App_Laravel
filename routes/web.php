@@ -18,7 +18,9 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::resource('products', 'ProductController')->middleware('auth');
 
+/*
 Route::delete('products/{id}', 'ProductController@destroy')->name('products.destroy');
 Route::put('products/{id}', 'ProductController@update')->name('products.update');
 Route::get('products/{id}/edit', 'ProductController@edit')->name('products.edit');
