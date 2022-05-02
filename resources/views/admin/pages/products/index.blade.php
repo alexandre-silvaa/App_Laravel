@@ -4,6 +4,19 @@
 
 @section('content')
 
+	@include('admin.includes.alerts', ['content' => 'Alerta de preços dos produtos'])
+
+	<hr>
+
+	@component('admin.components.card')
+		@slot('title')
+			<h4>Lorem Ipsum</h4>
+		@endslot
+		Um card de Exemplo!
+	@endcomponent
+
+	<hr>
+
 	<h1>Exibindo os produtos</h1>
 
 	@if (isset($products))
