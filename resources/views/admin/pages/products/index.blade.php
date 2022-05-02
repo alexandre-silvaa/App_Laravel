@@ -6,34 +6,29 @@
 
 	<h1>Exibindo os produtos</h1>
 
-	@if ($teste === '123')
-		É igual
-	@else 
-		É diferente	
+	@if (isset($products))
+		@foreach ($products as $product)
+			<p class="@if ($loop->last) last @endif"> {{ $product }} </p>
+		@endforeach
 	@endif
 
-	@isset($teste2)
-		<p>{{ $teste2 }}</p>
-	@endisset
+	<hr>
 
-	@auth
-		<p>Autenticado com Sucesso!!!</p>
-	@endauth
+	@forelse ($products as $product)
+		<p class="@if ($loop->first) last @endif"> {{ $product }} </p>	
+	@empty
+		<p>Não existem produtos cadastrados.</p>
+	@endforelse
 
-	@switch($teste)
-		@case(1)
-			Igual a 1
-			@break
-		@case(2)
-			Igual a 2
-		@case(3)
-			Igual a 3
-		@case(123)
-			Igual a 123
-			@break
-		@default
-			Pdrão
-	@endswitch
+	<hr>
 
 @endsection 
+
+<style>
+
+	.last{
+		background-color: #bbbbbb; 
+	}
+
+</style>
 
