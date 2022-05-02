@@ -4,7 +4,20 @@
 
 @section('content')
 
-	@include('admin.includes.alerts', ['content' => 'Alerta de preços dos produtos'])
+	{{-- @include('admin.includes.alerts', ['content' => 'Alerta de preços dos produtos']) --}}
+
+	<h1>Exibindo os produtos</h1>
+
+	<a href="{{ route('products.create') }}" class="">Cadastrar Novo Produto</a>
+
+	<hr>
+	
+
+	@if (isset($products))
+		@foreach ($products as $product)
+			<p class="@if ($loop->last) last @endif"> {{ $product }} </p>
+		@endforeach
+	@endif
 
 	<hr>
 
@@ -15,25 +28,13 @@
 		Um card de Exemplo!
 	@endcomponent
 
-	<hr>
 
-	<h1>Exibindo os produtos</h1>
-
-	@if (isset($products))
-		@foreach ($products as $product)
-			<p class="@if ($loop->last) last @endif"> {{ $product }} </p>
-		@endforeach
-	@endif
-
-	<hr>
-
-	@forelse ($products as $product)
+	{{-- @forelse ($products as $product)
 		<p class="@if ($loop->first) last @endif"> {{ $product }} </p>	
 	@empty
 		<p>Não existem produtos cadastrados.</p>
-	@endforelse
+	@endforelse --}}
 
-	<hr>
 
 @endsection 
 

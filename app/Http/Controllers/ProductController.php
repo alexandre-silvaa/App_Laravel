@@ -32,7 +32,7 @@ class ProductController extends Controller
 
     public function create()
     {
-        //return "Exibindo o form de cadastro de um novo produto";
+        return view('admin.pages.products.create');
     }
 
     public function edit($id)
@@ -43,7 +43,7 @@ class ProductController extends Controller
 
      public function store()
     {
-        //return "Cadastrando de um novo produto";
+        dd('Cadastrando Produto...');
     }
 
     public function update($id)
