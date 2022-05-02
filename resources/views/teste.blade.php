@@ -11,7 +11,9 @@
 
 <body>
 
-	Hello World!
+	{{ $teste }}
+
+	{!! $teste !!}
 
 </body>
 

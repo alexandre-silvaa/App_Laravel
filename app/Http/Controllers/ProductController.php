@@ -15,7 +15,9 @@ class ProductController extends Controller
 
     public function index()
     {
-        return view ('teste');
+        $teste = '<h1>Olá</h1>';
+
+        return view ('teste', compact('teste'));
 
         //$products = ['Produto 01', 'Produto 02', 'Produto 03'];
         //return $products;
