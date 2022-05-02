@@ -37,11 +37,18 @@
 
 @endsection 
 
-<style>
+@push('styles')
+	<style>
+		.last{
+			background-color: #bbbbbb; 
+		}
+	</style>
+@endpush
 
-	.last{
-		background-color: #bbbbbb; 
-	}
+@push('scripts')
+	<script>
+		document.body.style.backgroundColor = '#EDFEFD';
+	</script>
+@endpush
 
-</style>
 
