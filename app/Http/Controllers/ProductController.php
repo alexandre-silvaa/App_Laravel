@@ -46,8 +46,19 @@ class ProductController extends Controller
         // dd('Cadastrando Produto...');
         // dd($request->all());
         // dd($request->only(['name', 'description']));
-        //dd($request->input('teste', 'default'));
-        dd($request->except('_token'));
+        // dd($request->input('teste', 'default'));
+        // dd($request->except('_token'));
+
+        if($request->file('photo')->isValid()){
+            //dd($request->photo->extension());
+            //Salva arquivo
+            //dd($request->file('photo')->store('products'));
+
+
+            //Salva arquivo com nome personalizado
+            $nameFile = $request->name . '.'. $request->photo->extension();
+            dd($request->file('photo')->storeAs('products', $nameFile));
+        }
     }
 
     public function update($id)
