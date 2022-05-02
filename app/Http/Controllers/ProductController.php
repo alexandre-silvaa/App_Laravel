@@ -15,11 +15,10 @@ class ProductController extends Controller
 
     public function index()
     {
+        return view ('teste');
 
-        $products = ['Produto 01', 'Produto 02', 'Produto 03'];
-
-
-        return $products;
+        //$products = ['Produto 01', 'Produto 02', 'Produto 03'];
+        //return $products;
     }
 
     public function show($id)
