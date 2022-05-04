@@ -6,35 +6,34 @@
 
 	{{-- @include('admin.includes.alerts', ['content' => 'Alerta de preços dos produtos']) --}}
 
-	<h1>Exibindo os produtos</h1>
+	<h1 class="ml-5">Exibindo os produtos</h1>
 
-	<a href="{{ route('products.create') }}" class="">Cadastrar Novo Produto</a>
-
-	<hr>
-	
-
-	@if (isset($products))
-		@foreach ($products as $product)
-			<p class="@if ($loop->last) last @endif"> {{ $product }} </p>
-		@endforeach
-	@endif
+	<a href="{{ route('products.create') }}" class="ml-5">Cadastrar Novo Produto</a>
 
 	<hr>
 
-	@component('admin.components.card')
-		@slot('title')
-			<h4>Lorem Ipsum</h4>
-		@endslot
-		Um card de Exemplo!
-	@endcomponent
+	<table class="ml-5"> 
+		<thead>
+			<tr>
+				<th>Nome</th>
+				<th>Preço</th>
+				<th>Ações</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach ($products as $product)
+				<tr>
+					<td>{{ $product->name }}</td>
+					<td>{{ $product->price }}</td>
+					<td>
+						<a href="">Detalhes</a>
+					</td>
+				</tr>
+			@endforeach
+		</tbody>
+	</table>
 
-
-	{{-- @forelse ($products as $product)
-		<p class="@if ($loop->first) last @endif"> {{ $product }} </p>	
-	@empty
-		<p>Não existem produtos cadastrados.</p>
-	@endforelse --}}
-
+	{!! $products->links() !!}
 
 @endsection 
 
