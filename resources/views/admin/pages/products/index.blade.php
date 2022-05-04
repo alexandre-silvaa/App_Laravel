@@ -6,18 +6,19 @@
 
 	{{-- @include('admin.includes.alerts', ['content' => 'Alerta de preços dos produtos']) --}}
 
-	<h1 class="ml-5">Exibindo os produtos</h1>
-
-	<a href="{{ route('products.create') }}" class="ml-5">Cadastrar Novo Produto</a>
+	<div class="ml-5">
+		<h1>Exibindo os produtos</h1>
+		<a href="{{ route('products.create') }}" class="btn btn-primary">Cadastrar Novo Produto</a>
+	</div>
 
 	<hr>
 
-	<table class="ml-5"> 
+	<table class="table table-striped"> 
 		<thead>
 			<tr>
 				<th>Nome</th>
 				<th>Preço</th>
-				<th>Ações</th>
+				<th width="100">Ações</th>
 			</tr>
 		</thead>
 		<tbody>
