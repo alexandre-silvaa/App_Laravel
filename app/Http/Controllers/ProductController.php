@@ -9,15 +9,17 @@ use App\Http\Requests\StoreUpdateProductRequest;
 class ProductController extends Controller
 {
     protected $request;
-
-    public function __construct(Request $request)
+    private $repository;
+    
+    public function __construct(Request $request, Product $product)
     {
         $this->request = $request; 
+        $this->repository = $product;
     }
 
     public function index()
     {
-        $products = Product::paginate();
+        $products = $this->repository->paginate();
 
         return view ('admin.pages.products.index', [
             'products' => $products
@@ -27,9 +29,8 @@ class ProductController extends Controller
     public function show($id)
     {
 
-        if(!$product = Product::find($id))
+        if(!$product = $this->repository->find($id))
             return redirect()->back();
-
 
         return view('admin.pages.products.show', [
             'product' => $product
@@ -51,9 +52,8 @@ class ProductController extends Controller
     {
 
         $data = $request->only('name', 'description', 'price');
+        $this->repository->create($data);
 
-        Product::create($data);
-    
         return redirect()->route('products.index');
     }
 
@@ -62,8 +62,14 @@ class ProductController extends Controller
         dd('Editando Produto {$id}...');    
     }
 
-    public function delete($id)
+    public function destroy($id)
     {
-        //return "Excluindo um novo produto";
+        if(!$product = $this->repository->find($id))
+            return redirect()->back();
+
+        $product->delete();
+
+        return redirect()->route('products.index');
+
     }
 }
