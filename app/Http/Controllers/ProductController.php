@@ -59,7 +59,7 @@ class ProductController extends Controller
         return redirect()->route('products.index');
     }
 
-    public function update(Request $request, $id)
+    public function update(StoreUpdateProductRequest $request, $id)
     {
         if(!$product = $this->repository->find($id))
             return redirect()->back();
