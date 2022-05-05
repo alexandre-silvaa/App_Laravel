@@ -28,7 +28,6 @@ class ProductController extends Controller
 
     public function show($id)
     {
-
         if(!$product = $this->repository->find($id))
             return redirect()->back();
 
@@ -44,7 +43,10 @@ class ProductController extends Controller
 
     public function edit($id)
     {
-        return view('admin.pages.products.edit', compact('id'));
+        if(!$product = $this->repository->find($id))
+            return redirect()->back();
+
+        return view('admin.pages.products.edit', compact('product'));
     }
 
 
@@ -57,9 +59,14 @@ class ProductController extends Controller
         return redirect()->route('products.index');
     }
 
-    public function update($id)
+    public function update(Request $request, $id)
     {
-        dd('Editando Produto {$id}...');    
+        if(!$product = $this->repository->find($id))
+            return redirect()->back();
+
+        $product->update($request->all());  
+        
+        return redirect()->route('products.index');
     }
 
     public function destroy($id)

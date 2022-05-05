@@ -3,13 +3,10 @@
 @section('title', 'Editar produto')
 
 @section('content')
-    <h4>Editar produto {{ $id }} </h4>
+    <h4>Editar produto {{ $product->name }} </h4>
 
-    <form action="{{ route('products.update', $id) }}" method="post">
+    <form action="{{ route('products.update', $product->id) }}" method="post">
         @method('PUT')
-        @csrf
-        <input type="text" name="name" placeholder="Nome">
-        <input type="text" name="description" placeholder="Descrição">
-        <button class="btn btn-sm btn-success" type="submit">Enviar</button>
+        @include('admin.pages.products._partials.forms')
     </form>
 @endsection
