@@ -13,13 +13,24 @@
 
 	<hr>
 
+	<form action="{{ route('products.search') }}" class="form form-inline m-3" method="post">
+		@csrf
+		<div>
+			<input type="text" name="filter" placeholder="Filtrar" class="form-control" value="{{ $filters['filter'] ?? '' }}">
+			<button class="btn btn-success">
+				<i class="bi bi-search"></i>
+			</button>
+		</div>
+			
+	</form>
+
 	<div class="container">
-		<table class="table table-striped table-hover table-lg"> 
+		<table class="table table-striped table-hover"> 
 			<thead>
 				<tr>
-					<th>Nome</th>
-					<th>Preço</th>
-					<th width="100">Ações</th>
+					<th width=50% >Nome</th>
+					<th width=30% >Preço</th>
+					<th colspan="2">Ações</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -28,14 +39,21 @@
 						<td>{{ $product->name }}</td>
 						<td>{{ $product->price }}</td>
 						<td>
-							<a href="{{ route('products.show', $product->id) }}">Detalhes</a>
-							<a href="{{ route('products.edit', $product->id) }}">Editar</a>
+							<a href="{{ route('products.show', $product->id) }}" class="btn btn-primary bi bi-three-dots"> Detalhes</a>
+
+							<a href="{{ route('products.edit', $product->id) }}" class="btn btn-success bi bi-pencil-square"> Editar</a>
 						</td>
 					</tr>
 				@endforeach
 			</tbody>
 		</table>
-		{!! $products->links() !!}
+
+		@if (isset($filters))
+			{!! $products->appends($filters)->links() !!}
+		@else
+			{!! $products->links() !!}
+		@endif
+		
 	</div>
 
 @endsection 

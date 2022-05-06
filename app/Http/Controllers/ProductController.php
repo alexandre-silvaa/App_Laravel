@@ -79,4 +79,17 @@ class ProductController extends Controller
         return redirect()->route('products.index');
 
     }
+
+    // Search Products
+    public function search(Request $request)
+    {
+        $filter = $request->except('_token');
+
+        $products = $this->repository->search($request->filter);
+
+        return view ('admin.pages.products.index', [
+            'products' => $products,
+            'filters'   => $filter
+        ]);
+    }
 }
