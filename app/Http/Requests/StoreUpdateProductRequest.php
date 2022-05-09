@@ -28,9 +28,8 @@ class StoreUpdateProductRequest extends FormRequest
         return [
             'name'        => "required|min:3|max:255|unique:products,name,{$id},id",
             'description' => 'required|min:3|max:10000',
-            'price'       => "required|regex:/^\d+(\.\d{1,2})?$/"
-            ,
-            'image'       => 'nullable|image'
+            'price'       => "required|regex:/^\d+(\.\d{1,2})?$/",
+            'image'       => 'image|nullable'
         ];
     }
 

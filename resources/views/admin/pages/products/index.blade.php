@@ -28,19 +28,24 @@
 		<table class="table table-striped table-hover"> 
 			<thead>
 				<tr>
-					<th width=50% >Nome</th>
-					<th width=30% >Preço</th>
+					<td>Imagem</td>
+					<th>Nome</th>
+					<th>Preço</th>
 					<th colspan="2">Ações</th>
 				</tr>
 			</thead>
 			<tbody>
 				@foreach ($products as $product)
 					<tr>
+						<td>
+							@if($product->image)
+								<img src="{{ url("storage/$product->image") }}" alt="{{ $product->name }}" style="max-width: 100px; border-radius: 10px;">
+							@endif
+						</td>
 						<td>{{ $product->name }}</td>
 						<td>{{ $product->price }}</td>
 						<td>
 							<a href="{{ route('products.show', $product->id) }}" class="btn btn-primary bi bi-three-dots"> Detalhes</a>
-
 							<a href="{{ route('products.edit', $product->id) }}" class="btn btn-success bi bi-pencil-square"> Editar</a>
 						</td>
 					</tr>

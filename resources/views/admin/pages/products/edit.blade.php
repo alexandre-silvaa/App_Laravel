@@ -5,7 +5,7 @@
 @section('content')
     <h4>Editar produto {{ $product->name }} </h4>
 
-    <form action="{{ route('products.update', $product->id) }}" method="post">
+    <form action="{{ route('products.update', $product->id) }}" method="post" enctype="multipart/form-data">
         @method('PUT')
         @include('admin.pages.products._partials.forms')
     </form>

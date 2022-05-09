@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreUpdateProductRequest;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -17,15 +18,18 @@ class ProductController extends Controller
         $this->repository = $product;
     }
 
+
+    //Página Inicial - Lista os produtos
     public function index()
     {
-        $products = $this->repository->paginate();
+        $products = $this->repository->orderBy('name')->paginate();
 
         return view ('admin.pages.products.index', [
             'products' => $products
         ]);
     }
 
+    //Mostra os detalhes de um produto
     public function show($id)
     {
         if(!$product = $this->repository->find($id))
@@ -36,11 +40,13 @@ class ProductController extends Controller
         ]);
     }
 
+    //Retorna a view de criação de produtos
     public function create()
     {
         return view('admin.pages.products.create');
     }
 
+    //Retorna a view de edição de produtos
     public function edit($id)
     {
         if(!$product = $this->repository->find($id))
@@ -50,29 +56,57 @@ class ProductController extends Controller
     }
 
 
-     public function store(StoreUpdateProductRequest $request)
+    //Função de criação de produtos
+    public function store(StoreUpdateProductRequest $request)
     {
 
-        $data = $request->only('name', 'description', 'price');
+        $data = $request->only('name', 'description', 'price', 'image');
+
+        if($request->hasFile('image') && $request->image->isValid()){
+            $imagePath = $request->image->store('products');
+
+            $data['image'] = $imagePath;
+        }
+
         $this->repository->create($data);
 
         return redirect()->route('products.index');
     }
 
+    //Função de edição de produtos
     public function update(StoreUpdateProductRequest $request, $id)
     {
         if(!$product = $this->repository->find($id))
             return redirect()->back();
 
-        $product->update($request->all());  
+        $data = $request->all();
+
+        if($request->hasFile('image') && $request->image->isValid()){
+
+            if($product->image && Storage::exists($product->image)){
+                Storage::delete($product->image);
+            }
+
+            $imagePath = $request->image->store('products');
+            $data['image'] = $imagePath;
+        }
+
+
+        $product->update($data);  
         
         return redirect()->route('products.index');
     }
 
+
+    //Função de exclusão de produtos
     public function destroy($id)
     {
         if(!$product = $this->repository->find($id))
             return redirect()->back();
+
+        if($product->image && Storage::exists($product->image)){
+                Storage::delete($product->image);
+            }
 
         $product->delete();
 
