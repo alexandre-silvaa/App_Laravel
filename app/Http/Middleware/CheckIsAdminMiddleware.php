@@ -17,7 +17,7 @@ class CheckIsAdminMiddleware
     {
         $user = auth()->user();
 
-        if($user->email != "alexandre@timastertec.com.br"){
+        if($user->email != "nbatz@example.com"){
             return redirect('/');
         }
 
